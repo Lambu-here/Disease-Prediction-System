@@ -9,13 +9,15 @@
 #include <algorithm>
 #include <sstream>
 #include <cmath>
+
 using namespace std;
 using MATRIX = vector<vector<int>>;
-HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); // used for goto
-COORD CursorPosition;                             // used for goto
+
+// used for goto
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+COORD CursorPosition;
 
 template <class T>
-
 void PrintData1(vector<T> &data)
 {
     cout << endl;
@@ -59,7 +61,6 @@ public:
     TreeNode(MATRIX &data)
     {
         this->leftChild = this->rightChild = NULL;
-        // const vector<int> outputsBefore = data[0]; // Index 0
         this->trainData = data;
         pair<int, float> r = GetInfoGain(trainData);
         this->bestSplit.Feature = r.first;
@@ -137,10 +138,7 @@ public:
 
         for (int i = 1; i <= data[0].size(); i++)
         {
-            // if (TreeNode::selectedFeature.empty() || !IsInIt(TreeNode::selectedFeature, i))
-            // {
             calM[i] = ColGain(data, i);
-            // }
         }
 
         float MaxRet = 0.f;
@@ -293,6 +291,7 @@ public:
     MATRIX accepted;
     MATRIX rejected;
 };
+
 int DATACOUNTER = 1;
 TwoMatrix Split_Data(MATRIX &tempData, int f)
 {
@@ -301,7 +300,6 @@ TwoMatrix Split_Data(MATRIX &tempData, int f)
     MATRIX Rejected;
     Accepted.clear();
     Rejected.clear();
-    // cout << tempData.size() << endl;
     for (int i = 0; i < tempData.size(); i++)
     {
         if (tempData[i][f] == 0)
@@ -319,6 +317,7 @@ TwoMatrix Split_Data(MATRIX &tempData, int f)
         tw.accepted.clear();
         tw.accepted.resize(0, vector<int>(0));
     }
+
     if (remove_column(Rejected, f))
     {
         tw.rejected = Rejected;
@@ -413,7 +412,6 @@ public:
     menu()
     {
         system("cls");
-        loader();
         ccolor(15);
         cout << endl
              << endl;
@@ -421,10 +419,9 @@ public:
         dname();
         userinput();
     };
+
     void restlist(vector<string> names);
     void loadques();
-    void loadname();
-    void loader();
     void ccolor(int);
     void userinput();
     void showcredits();
@@ -442,12 +439,10 @@ void gotoXY(int x, int y)
     CursorPosition.Y = y;
     SetConsoleCursorPosition(console, CursorPosition);
 }
-
 int main(int argc, char const *argv[])
 {
     menu M;
 }
-
 void menu::PrintList(vector<string> &data)
 {
 
@@ -467,7 +462,7 @@ void menu::restlist(vector<string> names)
     bool running = true;
 
     gotoXY(50, 5);
-    cout << "All Restaraunts";
+    cout << "All Restaurants";
     gotoXY(45, 7);
     cout << "->";
 
@@ -509,7 +504,6 @@ void menu::restlist(vector<string> names)
 
             switch (menu_item)
             {
-
             case 0:
             {
                 userrest = "Al Kabab";
@@ -614,7 +608,6 @@ void menu::restlist(vector<string> names)
             }
         }
     }
-
     gotoXY(20, 21);
 }
 
@@ -637,7 +630,7 @@ void menu::userinput()
 
     cout << endl
          << endl
-         << "\t\t\t\t\t\tWelcome User !";
+         << "\t\t\t\t\t\tWelcome User!";
     Sleep(1000);
     system("cls");
     dname();
@@ -652,275 +645,13 @@ void menu::userinput()
 }
 void menu::loadques()
 {
-    Sleep(50);
-    ;
-    std::cout << "\bJ" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "u" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "s" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " ";
-    std::cout << "A" << std::flush;
-    Sleep(50);
-    std::cout << "n" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "s" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "w" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "r" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " ";
-    std::cout << "A" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " ";
-    std::cout << "F" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "w" << std::flush;
-    std::cout << " ";
-    Sleep(50);
-    ;
-    std::cout << "Q" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "u" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "s" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "i" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "o" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "n" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "s" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " ";
-    std::cout << "A" << std::flush;
-    Sleep(50);
-    std::cout << "n" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "d" << std::flush;
-    std::cout << " ";
-    Sleep(50);
-    ;
-    std::cout << "W" << std::flush;
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " W" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "i" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "l" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "l";
-    std::cout << " P" << std::flush;
-    Sleep(50);
-    std::cout << "i" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "c" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "k" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " O" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "u" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t";
-    std::cout << " T" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "h";
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " P" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "e" << std::flush;
-    std::cout << "r";
-    Sleep(50);
-    ;
-    std::cout << "f" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "c" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " R";
-    std::cout << "e" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "s" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "a" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "u" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "r" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "a";
-    std::cout << "n" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "t";
-    std::cout << " F" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "o" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "r" << std::flush;
-    std::cout << " Y" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "o" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "u" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << " !" << std::flush;
-    Sleep(50);
-    ;
-    std::cout << "!" << std::flush;
-}
-void menu::loader()
-{
-    //    ccolor(4);
-    //    gotoXY(59, 7);
-    //    std::cout << 'D' << std::flush;
-    //    for (int i = 0; i < 3; i++)
-    //    {
-    //        Sleep(100);
-    //        std::cout << "\b" << std::flush;
-    //        gotoXY(65, 8);
-    //        std::cout << "E" << std::flush;
-    //        Sleep(100);
-    //        std::cout << "\b" << std::flush;
-    //        gotoXY(65, 11);
-    //        std::cout << "L" << std::flush;
-    //        std::cout << "\b" << std::flush;
-    //        gotoXY(59, 12);
-    //        Sleep(100);
-    //        std::cout << "I" << std::flush;
-    //        std::cout << "\b" << std::flush;
-    //        gotoXY(53, 11);
-    //        Sleep(100);
-    //        std::cout << "S" << std::flush;
-    //        std::cout << "\b" << std::flush;
-    //        gotoXY(53, 8);
-    //        Sleep(100);
-    //        std::cout << "H" << std::flush;
-    //    }
-    //    system("cls");
-    //    gotoXY(45, 9);
-    //    loadname();
-    //    gotoXY(48, 11);
-    //    showcredits();
-    //    system("cls");
-    //    ccolor(4);
-}
-void menu::loadname()
-{
-
-    Sleep(100);
-    ;
-    std::cout << "\bR" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " E" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " S" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " T" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " A" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " U" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << "\t";
-    std::cout << " R" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " A" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " N" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " T" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " P" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " R" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " O" << std::flush;
-    Sleep(100);
-    ;
-    std::cout << " O" << std::flush;
+    string message = "Just answer a few questions for us and we will pick out the perfect restaurant for you!!";
+    int sleep = 0 + (rand() % 100);
+    for(int i = 0; i < message.length(); i++) {
+        cout << message[i];
+        if(message[i] == ' ') continue;
+        Sleep(sleep);
+    }
 }
 void menu::showcredits()
 {
@@ -928,17 +659,14 @@ void menu::showcredits()
     ccolor(10);
     cout << "Khair";
     Sleep(500);
-    ;
     cout << " ";
     ccolor(12);
     cout << "Faseeh";
     Sleep(500);
-    ;
     cout << " ";
     ccolor(14);
     cout << "Anas";
     Sleep(500);
-    ;
     ccolor(15);
 }
 bool sortcol(const vector<string> &v1, const vector<string> &v2)
@@ -1015,7 +743,6 @@ void menu::budgetmenu()
         }
 
         int predict = -1;
-        // DecisionTree DT("TEMP.csv");
 
         if (GetAsyncKeyState(VK_RETURN))
         { // Enter key pressed
@@ -1076,10 +803,9 @@ void menu::budgetmenu()
                      << endl;
                 gotoXY(37, 9);
                 cout << "Below are some " << printcuisine << " recommendation for you : " << endl;
-                printacceptedreslist(DT.DataInString, usercuisine); // all american retaurant printing, lekin double double
+                printacceptedreslist(DT.DataInString, usercuisine);
                 exit(0);
             }
-
             else if (predict == 1)
             {
                 system("cls");
