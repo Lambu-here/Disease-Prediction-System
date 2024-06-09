@@ -16,7 +16,7 @@ COORD CursorPosition;                             // used for goto
 
 template <class T>
 
-void PrintData1(vector<T>& data)
+void PrintData1(vector<T> &data)
 {
     cout << endl;
     for (auto num : data)
@@ -27,7 +27,7 @@ void PrintData1(vector<T>& data)
 }
 
 template <class T>
-void PrintData2(vector<vector<T>>& data)
+void PrintData2(vector<vector<T>> &data)
 {
     for (auto row : data)
     {
@@ -52,11 +52,11 @@ public:
     MATRIX trainData;
     bestSplitValues bestSplit;
 
-    TreeNode* leftChild;
-    TreeNode* rightChild;
+    TreeNode *leftChild;
+    TreeNode *rightChild;
     static vector<int> selectedFeature;
 
-    TreeNode(MATRIX& data)
+    TreeNode(MATRIX &data)
     {
         this->leftChild = this->rightChild = NULL;
         // const vector<int> outputsBefore = data[0]; // Index 0
@@ -65,10 +65,10 @@ public:
         this->bestSplit.Feature = r.first;
         this->bestSplit.resEntropy = r.second;
     }
-    vector<pair<int, int>> CountResults(MATRIX& Data, int index)
+    vector<pair<int, int>> CountResults(MATRIX &Data, int index)
     {
         vector<pair<int, int>> vp;
-        int count0{ 0 }, count1{ 0 };
+        int count0{0}, count1{0};
         if (index <= 0)
         {
             count0 = count1 = 0;
@@ -77,7 +77,7 @@ public:
                 count0 += (Data[i][0] == 0) ? 1 : 0;
                 count1 += (Data[i][0] == 1) ? 1 : 0;
             }
-            vp.push_back({ count1, count0 });
+            vp.push_back({count1, count0});
         }
         else
         {
@@ -92,7 +92,7 @@ public:
             {
                 count1 = i->second;
                 count0 = j->second - i->second;
-                vp.push_back({ count1, count0 });
+                vp.push_back({count1, count0});
             }
         }
         return vp;
@@ -103,7 +103,7 @@ public:
         double ret = -1 * (double(p.first / total) * log2(double(p.first / total))) - 1 * (double(p.second / total) * log2(double(p.second / total)));
         return (isnan(ret)) ? 0 : ret;
     }
-    float ColGain(MATRIX& data, int index)
+    float ColGain(MATRIX &data, int index)
     {
         float TotalColEntropy = EntropyOfCol(CountResults(data, 0)[0]);
         if (index == 0)
@@ -125,11 +125,11 @@ public:
         }
         return ret;
     }
-    pair<int, float> GetInfoGain(MATRIX& data)
+    pair<int, float> GetInfoGain(MATRIX &data)
     {
         if (data.size() == 0)
         {
-            return { -1, 0.0f };
+            return {-1, 0.0f};
         }
         vector<float> cal;
         map<int, float> calM;
@@ -153,9 +153,9 @@ public:
             }
         }
         selectedFeature.push_back(maxIndex);
-        return { maxIndex, MaxRet };
+        return {maxIndex, MaxRet};
     }
-    vector<int> GetColumn(MATRIX& dataT, int col)
+    vector<int> GetColumn(MATRIX &dataT, int col)
     {
         vector<int> ret;
         for (int i = 0; i < dataT.size(); i++)
@@ -165,7 +165,7 @@ public:
         return ret;
     }
 };
-vector<string> GetColumn(vector<vector<string>>& dataT, int col)
+vector<string> GetColumn(vector<vector<string>> &dataT, int col)
 {
     vector<string> ret;
     for (int i = 0; i < dataT.size(); i++)
@@ -176,7 +176,7 @@ vector<string> GetColumn(vector<vector<string>>& dataT, int col)
 }
 vector<int> TreeNode::selectedFeature;
 
-bool isIdentical(string c, vector<string>& alreadyE)
+bool isIdentical(string c, vector<string> &alreadyE)
 {
     for (auto n : alreadyE)
     {
@@ -189,7 +189,7 @@ bool isIdentical(string c, vector<string>& alreadyE)
 class Data_Retrieval
 {
 public:
-    Data_Retrieval() {
+    Data_Retrieval(){
 
     };
     vector<vector<string>> RETRIEVE_DATA(string filename)
@@ -220,7 +220,7 @@ public:
         }
         return record;
     }
-    MATRIX Bit_Mask(vector<vector<string>>& data)
+    MATRIX Bit_Mask(vector<vector<string>> &data)
     {
 
         MATRIX cvt(data.size(), vector<int>(data[0].size() - 1, 0));
@@ -248,7 +248,7 @@ public:
     }
 };
 
-bool remove_column(MATRIX& a, int pos)
+bool remove_column(MATRIX &a, int pos)
 {
     bool success = pos < a[0].size() && a.size() > 0;
     if (success)
@@ -294,7 +294,7 @@ public:
     MATRIX rejected;
 };
 int DATACOUNTER = 1;
-TwoMatrix Split_Data(MATRIX& tempData, int f)
+TwoMatrix Split_Data(MATRIX &tempData, int f)
 {
     DATACOUNTER++;
     MATRIX Accepted;
@@ -335,14 +335,14 @@ class DecisionTree
 {
 public:
     Data_Retrieval DR;
-    TreeNode* root;
+    TreeNode *root;
     vector<vector<string>> DataInString;
     DecisionTree(string filename = "TEMP.csv")
     {
         // This Constructor Will Fetch The Data and convert to integers
         this->DataInString = DR.RETRIEVE_DATA(filename);
         MATRIX DataForTraining = DR.Bit_Mask(DataInString);
-        TreeNode* rootC = new TreeNode(DataForTraining);
+        TreeNode *rootC = new TreeNode(DataForTraining);
         pair<int, float> r = rootC->GetInfoGain(rootC->trainData);
         rootC->bestSplit.Feature = r.first;
         rootC->bestSplit.resEntropy = r.second;
@@ -350,7 +350,7 @@ public:
         ConstructTree(root);
     }
 
-    static void ConstructTree(TreeNode* node)
+    static void ConstructTree(TreeNode *node)
     {
         pair<int, float> infoBefore = node->GetInfoGain(node->trainData);
 
@@ -361,19 +361,19 @@ public:
 
             if (children.accepted.size() > 0)
             {
-                TreeNode* rightChild = new TreeNode(children.accepted);
+                TreeNode *rightChild = new TreeNode(children.accepted);
                 node->rightChild = rightChild;
                 DecisionTree::ConstructTree(node->rightChild);
             }
             if (children.rejected.size() > 0)
             {
-                TreeNode* leftChild = new TreeNode(children.rejected);
+                TreeNode *leftChild = new TreeNode(children.rejected);
                 node->leftChild = leftChild;
                 DecisionTree::ConstructTree(node->leftChild);
             }
         }
     }
-    static int Predicts(TreeNode* node, vector<int> targets)
+    static int Predicts(TreeNode *node, vector<int> targets)
     {
         int obsCat = targets[node->bestSplit.Feature];
         int predict = -1;
@@ -392,7 +392,7 @@ public:
         }
         return predict;
     }
-    void InOrder(TreeNode* p)
+    void InOrder(TreeNode *p)
     {
         if (p != NULL)
         {
@@ -416,7 +416,7 @@ public:
         loader();
         ccolor(15);
         cout << endl
-            << endl;
+             << endl;
         system("cls");
         dname();
         userinput();
@@ -434,7 +434,7 @@ public:
     void reservmenu();
     void budgetmenu();
     void cuisinemenu();
-    void PrintList(vector<string>& data);
+    void PrintList(vector<string> &data);
 };
 void gotoXY(int x, int y)
 {
@@ -443,12 +443,12 @@ void gotoXY(int x, int y)
     SetConsoleCursorPosition(console, CursorPosition);
 }
 
-int main(int argc, char const* argv[])
+int main(int argc, char const *argv[])
 {
     menu M;
 }
 
-void menu::PrintList(vector<string>& data)
+void menu::PrintList(vector<string> &data)
 {
 
     int i = 6;
@@ -636,14 +636,14 @@ void menu::userinput()
 {
 
     cout << endl
-        << endl
-        << "\t\t\t\t\t\tWelcome User !";
+         << endl
+         << "\t\t\t\t\t\tWelcome User !";
     Sleep(1000);
     system("cls");
     dname();
     cout << endl
-        << endl
-        << "\t\t";
+         << endl
+         << "\t\t";
     loadques();
     Sleep(500);
     system("cls");
@@ -941,7 +941,7 @@ void menu::showcredits()
     ;
     ccolor(15);
 }
-bool sortcol(const vector<string>& v1, const vector<string>& v2)
+bool sortcol(const vector<string> &v1, const vector<string> &v2)
 {
     return v1[0] < v2[0];
 }
@@ -1073,7 +1073,7 @@ void menu::budgetmenu()
                 dname();
                 gotoXY(39, 4);
                 cout << userrest << " is not recommended for you! " << endl
-                    << endl;
+                     << endl;
                 gotoXY(37, 9);
                 cout << "Below are some " << printcuisine << " recommendation for you : " << endl;
                 printacceptedreslist(DT.DataInString, usercuisine); // all american retaurant printing, lekin double double
