@@ -1,5 +1,5 @@
 #include <iostream>
-#include <windows.h> // for sleep()
+#include <Windows.h>
 #include <conio.h>
 #include <map>
 #include <string>
@@ -17,26 +17,24 @@ using MATRIX = vector<vector<int>>;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD CursorPosition;
 
+// used for printing all elements of a 1D vector
 template <class T>
 void PrintData1(vector<T> &data)
 {
     cout << endl;
     for (auto num : data)
-    {
         cout << num << endl;
-    }
     cout << endl;
 }
 
+// used for printing all elements of a 2D vector
 template <class T>
 void PrintData2(vector<vector<T>> &data)
 {
     for (auto row : data)
     {
         for (auto num : row)
-        {
             cout << num << ", ";
-        }
         cout << endl;
     }
 }
@@ -89,7 +87,8 @@ public:
                 countAll[Data[i][index]]++;
                 countLabels[Data[i][index]] += Data[i][0];
             }
-            for (auto i = countLabels.begin(), j = countAll.begin(); i != countLabels.end() && j != countAll.end(); i++, j++)
+            for (auto i = countLabels.begin(), j = countAll.begin(); 
+                i != countLabels.end() && j != countAll.end(); i++, j++)
             {
                 count1 = i->second;
                 count0 = j->second - i->second;
@@ -101,7 +100,8 @@ public:
     double EntropyOfCol(pair<int, int> p)
     {
         double total = double(p.first + p.second);
-        double ret = -1 * (double(p.first / total) * log2(double(p.first / total))) - 1 * (double(p.second / total) * log2(double(p.second / total)));
+        double ret = -1 * (double(p.first / total) * log2(double(p.first / total))) - 1 
+                                * (double(p.second / total) * log2(double(p.second / total)));
         return (isnan(ret)) ? 0 : ret;
     }
     float ColGain(MATRIX &data, int index)
@@ -163,6 +163,7 @@ public:
         return ret;
     }
 };
+
 vector<string> GetColumn(vector<vector<string>> &dataT, int col)
 {
     vector<string> ret;
@@ -184,6 +185,7 @@ bool isIdentical(string c, vector<string> &alreadyE)
     alreadyE.push_back(c);
     return false;
 }
+
 class Data_Retrieval
 {
 public:
@@ -433,16 +435,19 @@ public:
     void cuisinemenu();
     void PrintList(vector<string> &data);
 };
+
 void gotoXY(int x, int y)
 {
     CursorPosition.X = x;
     CursorPosition.Y = y;
     SetConsoleCursorPosition(console, CursorPosition);
 }
+
 int main(int argc, char const *argv[])
 {
     menu M;
 }
+
 void menu::PrintList(vector<string> &data)
 {
 
@@ -610,7 +615,6 @@ void menu::restlist(vector<string> names)
     }
     gotoXY(20, 21);
 }
-
 void menu::dname()
 {
     ccolor(4);
