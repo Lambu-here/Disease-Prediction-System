@@ -34,8 +34,8 @@ The Disease Prediction System predicts diseases by analyzing symptoms entered by
 
 2. Clone this repository to your local machine:
     ```sh
-    git clone https://github.com/your-repo/disease-prediction-system.git
-    cd disease-prediction-system
+    git clone https://github.com/syed-mohd-fasih/Disease-Prediction-System.git
+    cd Disease-Prediction-System
     ```
 
 ## Implementation Details
